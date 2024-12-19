@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            YALEN COMMERCIAL ADVENTURES
+        </div>
+        <div class="links">
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'register' %}">Register for Free</a></li> 
+                <li><a href="{% url 'login' %}">Login</a></li> 
+            </ul>
+        </div>
+    </div>
+    <div class="form-box">
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: darkorange;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <!-- {% if messages %}
+            <ul class="messages">
+               {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %} -->
+        <form class="login" method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username"><br>
+
+            <label for="userrole">User role:</label>
+                <select>
+                    <option value="admin" id="user_role" name="user_role">admin</option>
+                    <option value="seller" id="user_role" name="user_role">seller</option>
+                    <option value="user" id="user_role" name="user_role">user</option>
+                </select><br>
+
+            <!-- <label for="role">User role:</label>
+            <input type="text" id="role" name="role"><br> -->
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"><br>
+            
+            <input type="submit" value="Sign In"><br>
+    
+            <label for="">
+                Don't have an account? <a href="{% url 'register' %}">Register Now</a>
+            </label>
+        </form>
+    </div>
+</body>
+</html>

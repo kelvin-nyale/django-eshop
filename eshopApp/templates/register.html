@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            YALEN COMMERCIAL ADVENTURES
+        </div>
+        <div class="links">
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'register' %}">Register for Free</a></li> 
+                <li><a href="{% url 'login' %}">Login</a></li> 
+                <!-- <li><a href="users.html">Users</a></li> -->
+                <!-- <li><a href="services.html">Services</a></li> -->
+                <li><a href="#">Services</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="form-box">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form class="register" method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username"><br>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"><br>
+
+            <label for="role">User role:</label>
+            <input type="text" id="role" name="role"><br>
+
+            <!-- <select>
+                <option value="admin" id="role" name="role">admin</option>
+                <option value="seller" id="role" name="role">seller</option>
+                <option value="user" id="role" name="role">user</option>
+            </select><br> -->
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+            
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required><br>
+            
+            <input type="submit" value="Sign Up"><br>
+    
+            <label for="">
+                Already have an account? <a href="{% url 'login' %}">Sign In</a>
+            </label>
+            
+        </form>
+    </div>
+</body>
+</html>
